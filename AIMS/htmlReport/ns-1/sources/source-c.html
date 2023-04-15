@@ -1,0 +1,258 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > transcript</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.AIMS</a>
+</div>
+
+<h1>Coverage Summary for Class: transcript (org.AIMS)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">transcript</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    83.8%
+  </span>
+  <span class="absValue">
+    (98/117)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.AIMS;
+&nbsp;
+&nbsp;import java.io.BufferedWriter;
+&nbsp;import java.sql.*;
+&nbsp;import java.util.Scanner;
+&nbsp;import java.sql.Connection;
+&nbsp;import java.io.FileWriter;
+&nbsp;import java.io.IOException;
+&nbsp;
+<b class="fc">&nbsp;public class transcript {</b>
+&nbsp;
+<b class="fc">&nbsp;    static admin admin = new admin();</b>
+<b class="fc">&nbsp;    static DBConnector DBConnector = new DBConnector();</b>
+&nbsp;
+&nbsp;
+&nbsp;    public static boolean flow() throws IOException {
+&nbsp;
+&nbsp;        // JDBC
+<b class="fc">&nbsp;        Connection conn = null;</b>
+<b class="fc">&nbsp;        Statement stmt = null;</b>
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            conn=DBConnector.getConnection();</b>
+<b class="fc">&nbsp;            stmt = conn.createStatement();</b>
+<b class="nc">&nbsp;        }catch (Exception err)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            err.printStackTrace();</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+<b class="fc">&nbsp;        Scanner in = new Scanner(System.in);</b>
+&nbsp;        String option;
+&nbsp;
+<b class="fc">&nbsp;        System.out.println(&quot;Enter username &quot;);</b>
+<b class="fc">&nbsp;        System.out.println(&quot;PRESS 0 FOR GO BACK&quot;);</b>
+<b class="fc">&nbsp;        System.out.print(&quot;Enter an option: &quot;);</b>
+<b class="fc">&nbsp;        option = in.nextLine();</b>
+&nbsp;
+<b class="fc">&nbsp;        if(option.equals(&quot;0&quot;)) admin.flow();</b>
+&nbsp;        else
+&nbsp;        {
+<b class="fc">&nbsp;            reciept(option);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static boolean reciept(String option) throws IOException {
+&nbsp;
+&nbsp;        // JDBC
+<b class="fc">&nbsp;        Connection conn = null;</b>
+<b class="fc">&nbsp;        Statement stmt = null;</b>
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            conn=DBConnector.getConnection();</b>
+<b class="fc">&nbsp;            stmt = conn.createStatement();</b>
+<b class="nc">&nbsp;        }catch (Exception err)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            err.printStackTrace();</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;        String filename = &quot;src/main/resources/&quot;+option+&quot;_transcript.txt&quot;;</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;            String username = option;</b>
+<b class="fc">&nbsp;            String responseQuery=&quot;&quot;;</b>
+&nbsp;
+<b class="fc">&nbsp;            String details = &quot;SELECT * FROM user_details WHERE username = &#39;&quot;+username+&quot;&#39;&quot;;</b>
+<b class="fc">&nbsp;            String grades = &quot;SELECT * FROM grades WHERE username = &#39;&quot;+username+&quot;&#39;&quot;;</b>
+<b class="fc">&nbsp;</b>
+&nbsp;            try {
+&nbsp;                try {
+<b class="fc">&nbsp;                    stmt= conn.createStatement();</b>
+<b class="fc">&nbsp;                    ResultSet rs=stmt.executeQuery(details);</b>
+<b class="fc">&nbsp;                    ResultSetMetaData rsmd;</b>
+<b class="fc">&nbsp;                    rsmd=rs.getMetaData();</b>
+<b class="fc">&nbsp;                    int columnsNumber = rsmd.getColumnCount();</b>
+<b class="fc">&nbsp;                    while (rs.next()) {</b>
+<b class="fc">&nbsp;                        for (int i = 2; i &lt;= columnsNumber; i++) {</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;                            if (i == 2)</b>
+<b class="fc">&nbsp;                                responseQuery += &quot;username ---&gt; &quot;;</b>
+<b class="fc">&nbsp;                            if (i == 3)</b>
+<b class="fc">&nbsp;                                responseQuery += &quot;      semester ---&gt; &quot;;</b>
+<b class="fc">&nbsp;                            if (i == 4)</b>
+<b class="fc">&nbsp;                                responseQuery += &quot;      joining_date ---&gt; &quot;;</b>
+<b class="fc">&nbsp;                            if (i == 5)</b>
+<b class="fc">&nbsp;                                responseQuery += &quot;      batch ---&gt; &quot;;</b>
+<b class="fc">&nbsp;                            if (i == 6)</b>
+<b class="fc">&nbsp;                                responseQuery += &quot;      contact ---&gt; &quot;;</b>
+<b class="fc">&nbsp;                            if (i == 8)</b>
+<b class="fc">&nbsp;                                responseQuery += &quot;      current_sem_credits ---&gt; &quot;;</b>
+<b class="fc">&nbsp;                            if (i==9)</b>
+<b class="fc">&nbsp;                                responseQuery += &quot;      department ---&gt; &quot;;</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;                            String columnValue = rs.getString(i);</b>
+<b class="fc">&nbsp;                            responseQuery += columnValue+&quot; &quot;;</b>
+<b class="fc">&nbsp;//                            System.out.println(responseQuery);</b>
+&nbsp;                        }
+<b class="fc">&nbsp;                        responseQuery+=&quot;\n&quot;;</b>
+<b class="fc">&nbsp;                    }</b>
+<b class="fc">&nbsp;</b>
+&nbsp;                    // write separator line
+<b class="fc">&nbsp;                    responseQuery += &quot;-----------------------------------\n&quot;;</b>
+&nbsp;                    // grades query
+<b class="fc">&nbsp;                    rs=stmt.executeQuery(grades);</b>
+<b class="fc">&nbsp;                    rsmd=rs.getMetaData();</b>
+<b class="fc">&nbsp;                    columnsNumber = rsmd.getColumnCount();</b>
+<b class="fc">&nbsp;                    while (rs.next()) {</b>
+<b class="fc">&nbsp;                        for (int i = 2; i &lt;= columnsNumber; i++) {</b>
+<b class="fc">&nbsp;                            if (i == 2)</b>
+<b class="fc">&nbsp;                                responseQuery += &quot;username ---&gt; &quot;;</b>
+<b class="fc">&nbsp;                            if (i == 3)</b>
+<b class="fc">&nbsp;                                responseQuery += &quot;      course_id ---&gt; &quot;;</b>
+<b class="fc">&nbsp;                            if (i == 4)</b>
+<b class="fc">&nbsp;                                responseQuery += &quot;      grade ---&gt; &quot;;</b>
+<b class="fc">&nbsp;                            String columnValue = rs.getString(i);</b>
+<b class="fc">&nbsp;                            responseQuery += columnValue+&quot; &quot;;</b>
+<b class="fc">&nbsp;                            System.out.println(responseQuery);</b>
+<b class="fc">&nbsp;                        }</b>
+<b class="fc">&nbsp;                        responseQuery+=&quot;\n&quot;;</b>
+<b class="fc">&nbsp;                    }</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;                    Boolean isGraduated = student.graduationCheck(username);</b>
+<b class="fc">&nbsp;                    responseQuery += &quot;      Graduation Status :  ---&gt; &quot;+isGraduated;</b>
+<b class="fc">&nbsp;                    responseQuery+=&quot;\n&quot;;</b>
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;                    int sem = student.getsem(username);</b>
+<b class="fc">&nbsp;                    Double cgpa1 = cgpa.flow(username,sem);</b>
+<b class="fc">&nbsp;                    String s = Double.toString(cgpa1);</b>
+<b class="fc">&nbsp;                    responseQuery += &quot;      Current CGPA is  ---&gt; &quot;+s;</b>
+<b class="fc">&nbsp;                    responseQuery+=&quot;\n&quot;;</b>
+<b class="fc">&nbsp;</b>
+<b class="fc">&nbsp;                } catch (SQLException e) {</b>
+<b class="nc">&nbsp;                    System.out.println(e);</b>
+<b class="nc">&nbsp;                    return false;</b>
+<b class="fc">&nbsp;                }</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;                // write responseQuery to file</b>
+<b class="fc">&nbsp;                BufferedWriter out = new BufferedWriter(new FileWriter(&quot;src/main/resources/&quot;+username+&quot;_transcript.txt&quot;, true));</b>
+<b class="fc">&nbsp;                out.write(responseQuery);</b>
+<b class="fc">&nbsp;                out.close();</b>
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;            // Catch block to handle the exceptions</b>
+<b class="nc">&nbsp;            catch (IOException e) {</b>
+<b class="nc">&nbsp;</b>
+&nbsp;                // Display message when exception occurs
+<b class="fc">&nbsp;                System.out.println(&quot;exception occurred&quot; + e);</b>
+<b class="nc">&nbsp;                return false;</b>
+<b class="fc">&nbsp;            }</b>
+&nbsp;
+<b class="fc">&nbsp;        return true;</b>
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;</b>
+<b class="nc">&nbsp;}</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-07 01:36</div>
+</div>
+</body>
+</html>

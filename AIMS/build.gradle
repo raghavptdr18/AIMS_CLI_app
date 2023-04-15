@@ -1,0 +1,23 @@
+plugins {
+    id 'java'
+}
+
+group 'org.AIMS'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.postgresql:postgresql:42.5.4'
+    implementation 'junit:junit:4.13.2'
+//    implementation 'org.junit:junit-bom:5.9.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+    exclude 'org.AIMS.main.flow' , 'org.AIMS.admin.flow' , 'org.AIMS.instructor.flow' , 'org.AIMS.student.flow' , 'org.AIMS.studentCourse.flow'
+}

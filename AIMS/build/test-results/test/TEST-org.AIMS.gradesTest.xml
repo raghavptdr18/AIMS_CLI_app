@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.AIMS.gradesTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-03-06T20:01:37" hostname="DESKTOP-JPK0BMP" time="1.672">
+  <properties/>
+  <testcase name="allgradesadmin()" classname="org.AIMS.gradesTest" time="0.983"/>
+  <testcase name="allGrades()" classname="org.AIMS.gradesTest" time="0.515"/>
+  <testcase name="studentGrade()" classname="org.AIMS.gradesTest" time="0.168"/>
+  <system-out><![CDATA[7 raghav cs101 A 
+8 rrr cs304 B 
+9 rrr hs222 B 
+10 ppp hs222 A 
+11 ppp hs101 B 
+12 ppp hs222 A 
+13 ppp hs101 B 
+14 ppp hs222 A 
+15 ppp hs101 B 
+16 ppp hs222 A 
+17 ppp hs101 B 
+18 ppp hs222 A 
+19 ppp hs101 B 
+20 ppp hs222 A 
+21 ppp hs101 B 
+22 zz hs222 A 
+23 zz hs101 B 
+24 zz hs222 A 
+25 zz hs101 B 
+26 zz hs222 A 
+27 zz hs101 B 
+28 zz hs222 A 
+29 zz hs101 B 
+30 zz 2hs111 A 
+31 zz 3cs000 C 
+32 zz 3cs000 C 
+33 zz 3cs000 C 
+34 f cs101 C 
+35 f cs101 C 
+Invalid User
+10 ppp hs222 A 
+11 ppp hs101 B 
+12 ppp hs222 A 
+13 ppp hs101 B 
+14 ppp hs222 A 
+15 ppp hs101 B 
+16 ppp hs222 A 
+17 ppp hs101 B 
+18 ppp hs222 A 
+19 ppp hs101 B 
+20 ppp hs222 A 
+21 ppp hs101 B 
+Invalid User
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

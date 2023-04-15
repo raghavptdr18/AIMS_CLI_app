@@ -1,0 +1,262 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > grades</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.AIMS</a>
+</div>
+
+<h1>Coverage Summary for Class: grades (org.AIMS)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">grades</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    76.1%
+  </span>
+  <span class="absValue">
+    (67/88)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.AIMS;
+&nbsp;import java.sql.*;
+&nbsp;import java.util.Scanner;
+&nbsp;import java.sql.Connection;
+&nbsp;import java.sql.DriverManager;
+&nbsp;import java.sql.ResultSet;
+&nbsp;import java.sql.SQLException;
+&nbsp;import java.sql.Statement;
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;public class grades {</b>
+&nbsp;
+&nbsp;    public static boolean allGrades(String username) {
+&nbsp;
+&nbsp;        // JDBC
+<b class="fc">&nbsp;        Connection conn = null;</b>
+<b class="fc">&nbsp;        Statement stmt = null;</b>
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            conn=DBConnector.getConnection();</b>
+<b class="fc">&nbsp;            stmt = conn.createStatement();</b>
+<b class="nc">&nbsp;        }catch (Exception err)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            err.printStackTrace();</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        // invalid username
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            String query = &quot;SELECT * FROM instructors WHERE username = &#39;&quot;+username+&quot;&#39;&quot;;</b>
+<b class="fc">&nbsp;            Statement statement = conn.createStatement();</b>
+<b class="fc">&nbsp;            ResultSet resultSet = statement.executeQuery(query);</b>
+&nbsp;
+<b class="fc">&nbsp;            if(!resultSet.next())</b>
+&nbsp;            {
+<b class="fc">&nbsp;                System.out.println(&quot;Invalid User&quot;);</b>
+<b class="fc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            resultSet.close();</b>
+<b class="fc">&nbsp;            statement.close();</b>
+&nbsp;
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Failed Check&quot;);</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            String query = &quot;SELECT grades.username, course_offerings.course_id , grades.grade FROM course_offerings, grades WHERE course_offerings.instructor = &#39;&quot;+username+&quot;&#39; AND course_offerings.course_id=grades.course_id&quot;;</b>
+<b class="fc">&nbsp;            Statement statement = conn.createStatement();</b>
+<b class="fc">&nbsp;            ResultSet resultSet = statement.executeQuery(query);</b>
+<b class="fc">&nbsp;            while (resultSet.next()) {</b>
+<b class="fc">&nbsp;                for (int i = 1; i &lt;= resultSet.getMetaData().getColumnCount(); i++) {</b>
+<b class="fc">&nbsp;                    System.out.print(resultSet.getString(i) + &quot; &quot;);</b>
+&nbsp;                }
+<b class="fc">&nbsp;                System.out.println();</b>
+<b class="fc">&nbsp;                conn.close();</b>
+&nbsp;            }
+<b class="fc">&nbsp;            resultSet.close();</b>
+<b class="fc">&nbsp;            statement.close();</b>
+&nbsp;
+<b class="fc">&nbsp;            return true;</b>
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public static boolean allgradesadmin() {
+&nbsp;
+&nbsp;        // JDBC
+<b class="fc">&nbsp;        Connection conn = null;</b>
+<b class="fc">&nbsp;        Statement stmt = null;</b>
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            conn=DBConnector.getConnection();</b>
+<b class="fc">&nbsp;            stmt = conn.createStatement();</b>
+<b class="nc">&nbsp;        }catch (Exception err)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            err.printStackTrace();</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            String query = &quot;SELECT * FROM grades&quot;;</b>
+<b class="fc">&nbsp;            Statement statement = conn.createStatement();</b>
+<b class="fc">&nbsp;            ResultSet resultSet = statement.executeQuery(query);</b>
+<b class="fc">&nbsp;            while (resultSet.next()) {</b>
+<b class="fc">&nbsp;                for (int i = 1; i &lt;= resultSet.getMetaData().getColumnCount(); i++) {</b>
+<b class="fc">&nbsp;                    System.out.print(resultSet.getString(i) + &quot; &quot;);</b>
+&nbsp;                }
+<b class="fc">&nbsp;                System.out.println();</b>
+<b class="fc">&nbsp;                conn.close();</b>
+&nbsp;            }
+<b class="fc">&nbsp;            resultSet.close();</b>
+<b class="fc">&nbsp;            statement.close();</b>
+<b class="fc">&nbsp;            return true;</b>
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    public static boolean studentGrade(String username) {
+&nbsp;
+&nbsp;        // JDBC
+<b class="fc">&nbsp;        Connection conn = null;</b>
+<b class="fc">&nbsp;        Statement stmt = null;</b>
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            conn=DBConnector.getConnection();</b>
+<b class="fc">&nbsp;            stmt = conn.createStatement();</b>
+<b class="nc">&nbsp;        }catch (Exception err)</b>
+&nbsp;        {
+<b class="nc">&nbsp;            err.printStackTrace();</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        // invalid username
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            String query = &quot;SELECT * FROM users WHERE username = &#39;&quot;+username+&quot;&#39;&quot;;</b>
+<b class="fc">&nbsp;            Statement statement = conn.createStatement();</b>
+<b class="fc">&nbsp;            ResultSet resultSet = statement.executeQuery(query);</b>
+&nbsp;
+<b class="fc">&nbsp;            if(!resultSet.next())</b>
+&nbsp;            {
+<b class="fc">&nbsp;                System.out.println(&quot;Invalid User&quot;);</b>
+<b class="fc">&nbsp;                return false;</b>
+&nbsp;            }
+<b class="fc">&nbsp;            resultSet.close();</b>
+<b class="fc">&nbsp;            statement.close();</b>
+&nbsp;
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Failed Check&quot;);</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;
+&nbsp;        try {
+&nbsp;
+<b class="fc">&nbsp;            String query = &quot;SELECT * FROM grades WHERE username= &#39;&quot; + username + &quot;&#39;&quot;;</b>
+<b class="fc">&nbsp;            Statement statement = conn.createStatement();</b>
+<b class="fc">&nbsp;            ResultSet resultSet = statement.executeQuery(query);</b>
+<b class="fc">&nbsp;            while (resultSet.next()) {</b>
+<b class="fc">&nbsp;                for (int i = 1; i &lt;= resultSet.getMetaData().getColumnCount(); i++) {</b>
+<b class="fc">&nbsp;                    System.out.print(resultSet.getString(i) + &quot; &quot;);</b>
+&nbsp;                }
+<b class="fc">&nbsp;                System.out.println();</b>
+<b class="fc">&nbsp;                conn.close();</b>
+&nbsp;            }
+<b class="fc">&nbsp;            resultSet.close();</b>
+<b class="fc">&nbsp;            statement.close();</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;
+<b class="nc">&nbsp;        } catch (SQLException e) {</b>
+<b class="nc">&nbsp;            e.printStackTrace();</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-07 01:36</div>
+</div>
+</body>
+</html>
